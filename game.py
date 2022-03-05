@@ -6,7 +6,7 @@ from utils.constants import CORRECT, REPEATED, VALID, INVALID
 from utils.words import total_num_words, words
 from tries import get_tries_root
 
-DEBUG = os.environ.get('DEBUG', False);
+DEBUG = os.environ.get('DEBUG', False)
 
 game_state = [[[None, None] for j in range(5)] for i in range(6)]
 total_chances = 6
@@ -83,14 +83,14 @@ def clean_result(result, word):
 
 def run_game_loop(chances=total_chances):
     print('Game loop started')
-    for chance_num in range(chances):
-        print('Chance number: {}'.format(chance_num))
+    for chance_num in range(chances, total_chances):
+        print('Chance number: {}'.format(chance_num+1))
         if DEBUG:
-          print('Game state: {}'.format(game_state))
-          print('\n')
+            print('Game state: {}'.format(game_state))
+            print('\n')
 
         word = guess_word(current_state=None if chance_num ==
-                          0 and chances == total_chances else game_state[chance_num-1])
+                          0 else game_state[chance_num-1])
 
         result = clean_result(list(map(int, input(
             'Enter the result of the word: (GREY = 0, YELLOW = 1, GREEN = 2): ')[:5])), word)
