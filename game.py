@@ -83,7 +83,7 @@ def clean_result(result, word):
 
 def run_game_loop(chances=total_chances):
     print('Game loop started')
-    for chance_num in range(chances, total_chances):
+    for chance_num in range(total_chances-chances, total_chances):
         print('Chance number: {}'.format(chance_num+1))
         if DEBUG:
             print('Game state: {}'.format(game_state))
