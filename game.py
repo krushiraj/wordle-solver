@@ -52,7 +52,9 @@ def update_state_and_graph(current_state):
     return word_so_far, valid_chars
 
 
-def guess_word(current_state):
+def guess_word(current_state, guess_random_word=False):
+    if guess_random_word:
+        return 'audio'
     print('Guessing the words')
     is_first_word = current_state is None
     word = get_word(current_state, is_first_word)
@@ -81,6 +83,14 @@ def clean_result(result, word):
     return final_result
 
 
+def handle_first_chance_input():
+    print('We can always start the first guess with "AUDIO" word, else you can choose to go with a random word')
+    char = input('Do you want to start with a random word? (y/n): ')
+    if char[0].lower() == 'y':
+        return True
+    return False
+
+
 def run_game_loop(chances=total_chances):
     print('Game loop started')
     for chance_num in range(total_chances-chances, total_chances):
@@ -89,8 +99,11 @@ def run_game_loop(chances=total_chances):
             print('Game state: {}'.format(game_state))
             print('\n')
 
-        word = guess_word(current_state=None if chance_num ==
-                          0 else game_state[chance_num-1])
+        # AUDIO words is the only word in answer list that has highest vowel count
+        # so we can use it to check what vowel does the answer have
+        guess_random_word = handle_first_chance_input() if chance_num == 0 else False
+        word = guess_word(None if chance_num ==
+                          0 else game_state[chance_num-1], guess_random_word)
 
         result = clean_result(list(map(int, input(
             'Enter the result of the word: (GREY = 0, YELLOW = 1, GREEN = 2): ')[:5])), word)
