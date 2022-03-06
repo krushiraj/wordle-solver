@@ -1,5 +1,5 @@
 def vowel_count(word):
-    return sum([1 for char in word if char in 'aeiou'])
+    return sum([1 for char in set(word) if char in 'aeiou'])
 
 
 def sort_words_by_vowel_count(words):
