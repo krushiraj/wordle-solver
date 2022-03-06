@@ -19,9 +19,9 @@ def get_first_word():
     return words[randint(0, total_num_words - 1)]
 
 
-def get_word(current_state, is_first_word):
+def get_word(current_state, is_first_word, guess_random_word):
     if is_first_word:
-        return get_first_word()
+        return get_first_word() if guess_random_word else 'audio'
 
     word_so_far, valid_chars = update_state_and_graph(current_state)
     print('Correct Letters in word so far: {}'.format(' '.join(word_so_far)))
@@ -53,11 +53,9 @@ def update_state_and_graph(current_state):
 
 
 def guess_word(current_state, guess_random_word=False):
-    if guess_random_word:
-        return 'audio'
     print('Guessing the words')
     is_first_word = current_state is None
-    word = get_word(current_state, is_first_word)
+    word = get_word(current_state, is_first_word, guess_random_word)
     print('Word: {}'.format(word.upper()))
     print('\n')
     return word
@@ -85,10 +83,9 @@ def clean_result(result, word):
 
 def handle_first_chance_input():
     print('We can always start the first guess with "AUDIO" word, else you can choose to go with a random word')
-    char = input('Do you want to start with a random word? (y/n): ')
-    if char[0].lower() == 'y':
-        return True
-    return False
+    char = input('Do you want to start with word "AUDIO"? (y/n): ')
+    guess_random_word = True if char[0] == 'n' else False
+    return guess_random_word
 
 
 def run_game_loop(chances=total_chances):

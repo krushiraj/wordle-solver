@@ -1,5 +1,5 @@
 from random import randint, shuffle
-from utils.sort import sort_words_by_vowel_count
+from utils.sort import sort_words
 from utils.constants import VALID, INVALID
 from utils.words import words
 
@@ -96,7 +96,7 @@ class TrieCollection:
         possible_words = []
         self.get_possible_words(
             word_so_far, '', 0, self.tries, letters_present_in_word, possible_words)
-        return sort_words_by_vowel_count(possible_words)[0]
+        return sort_words(possible_words)[0]
 
     def has_expected_letters(self, possibility, letters_present_in_word):
         possiblity_chars = list(possibility)
