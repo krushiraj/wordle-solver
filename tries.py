@@ -1,5 +1,5 @@
 from random import randint, shuffle
-from sort import sort_words_by_vowel_count
+from utils.sort import sort_words_by_vowel_count
 from utils.constants import VALID, INVALID
 from utils.words import words
 
