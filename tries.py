@@ -96,7 +96,9 @@ class TrieCollection:
         possible_words = []
         self.get_possible_words(
             word_so_far, '', 0, self.tries, letters_present_in_word, possible_words)
-        return sort_words(possible_words)[0]
+        possible_words = sort_words(possible_words)
+        print('Possible words', '[', ', '.join(possible_words), ']')
+        return possible_words[0]
 
     def has_expected_letters(self, possibility, letters_present_in_word):
         possiblity_chars = list(possibility)
